@@ -1,0 +1,39 @@
+{
+  "name": "projeto_2_tb",
+  "version": "1.1.0",
+  "description": "Projeto para Catálogo de Produtos (API + Banco de Dados com Docker, PostgreSQL e Prisma)",
+  "license": "ISC",
+  "author": "Gabriel Barros",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "seed": "tsx prisma/seed.ts",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:generate": "prisma generate",
+    "prisma:studio": "prisma studio",
+    "test": "tsx --test tests/api.test.ts"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.19.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.5.0",
+    "@types/swagger-ui-express": "^4.1.8",
+    "prisma": "^6.19.3",
+    "ts-node-dev": "^2.0.0",
+    "tsx": "^4.23.13",
+    "typescript": "^5.9.3"
+  }
+}
