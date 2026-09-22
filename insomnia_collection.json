@@ -1,0 +1,309 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-09-20T18:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v2023.5.8",
+  "resources": [
+    {
+      "_id": "wrk_products_crud",
+      "parentId": null,
+      "modified": 1726855200000,
+      "created": 1726855200000,
+      "name": "Catálogo de Produtos - CRUD Express Prisma Zod",
+      "description": "Workspace com todas as requisições para teste do CRUD de produtos com Express, Prisma e Zod.\nStatus esperados: 200 (OK), 201 (Created), 204 (No Content), 400 (Bad Request), 404 (Not Found), 500 (Internal Server Error).",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_products_base",
+      "parentId": "wrk_products_crud",
+      "modified": 1726855200000,
+      "created": 1726855200000,
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:3000"
+      },
+      "dataPropertyOrder": {
+        "&": ["base_url"]
+      },
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1726855200000,
+      "_type": "environment"
+    },
+    {
+      "_id": "fld_products",
+      "parentId": "wrk_products_crud",
+      "modified": 1726855200000,
+      "created": 1726855200000,
+      "name": "Produtos (/api/products)",
+      "description": "Endpoints do CRUD de produtos",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 100,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_list_products",
+      "parentId": "fld_products",
+      "modified": 1726855200000,
+      "created": 1726855200000,
+      "url": "{{ _.base_url }}/api/products",
+      "name": "1. GET /api/products - Listar todos",
+      "description": "### Status Esperado: 200 OK\nRetorna a lista completa de produtos em ordem crescente de ID.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 100,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_product_valid",
+      "parentId": "fld_products",
+      "modified": 1726855200000,
+      "created": 1726855200000,
+      "url": "{{ _.base_url }}/api/products/1",
+      "name": "2. GET /api/products/:id - Válido",
+      "description": "### Status Esperado: 200 OK\nRetorna os dados do produto correspondente ao ID informado.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 200,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_product_invalid_id",
+      "parentId": "fld_products",
+      "modified": 1726855200000,
+      "created": 1726855200000,
+      "url": "{{ _.base_url }}/api/products/abc",
+      "name": "3. GET /api/products/:id - ID Inválido (400)",
+      "description": "### Status Esperado: 400 Bad Request\nID não numérico ('abc'). A API valida e rejeita a requisição antes de consultar o banco.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 300,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_product_not_found",
+      "parentId": "fld_products",
+      "modified": 1726855200000,
+      "created": 1726855200000,
+      "url": "{{ _.base_url }}/api/products/99999",
+      "name": "4. GET /api/products/:id - Inexistente (404)",
+      "description": "### Status Esperado: 404 Not Found\nID numérico válido que não corresponde a nenhum registro existente.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 400,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_post_product_valid",
+      "parentId": "fld_products",
+      "modified": 1726855200000,
+      "created": 1726855200000,
+      "url": "{{ _.base_url }}/api/products",
+      "name": "5. POST /api/products - Payload Válido (201)",
+      "description": "### Status Esperado: 201 Created\nCria um novo produto respeitando as regras do Zod: title (min 3), description (min 10), price (> 0), imageUrl (min 1).",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"Headset Sony WH-1000XM5\",\n  \"description\": \"Cancelamento de ruído líder da indústria com processador integrado V1 e 8 microfones\",\n  \"price\": 2299.90,\n  \"imageUrl\": \"https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 500,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_post_product_invalid",
+      "parentId": "fld_products",
+      "modified": 1726855200000,
+      "created": 1726855200000,
+      "url": "{{ _.base_url }}/api/products",
+      "name": "6. POST /api/products - Payload Inválido (400)",
+      "description": "### Status Esperado: 400 Bad Request\nPayload com violações do Zod: title < 3 chars, description < 10 chars, price negativo e imageUrl ausente.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"Oi\",\n  \"description\": \"Curto\",\n  \"price\": -50.00\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 600,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_put_product_valid",
+      "parentId": "fld_products",
+      "modified": 1726855200000,
+      "created": 1726855200000,
+      "url": "{{ _.base_url }}/api/products/1",
+      "name": "7. PUT /api/products/:id - Atualização Parcial Válida (200)",
+      "description": "### Status Esperado: 200 OK\nAtualização parcial usando schema .partial() do Zod. Apenas os campos fornecidos são alterados.",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"MacBook Pro 14 M3 Pro (Atualizado)\",\n  \"price\": 16499.00\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 700,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_put_product_invalid_price",
+      "parentId": "fld_products",
+      "modified": 1726855200000,
+      "created": 1726855200000,
+      "url": "{{ _.base_url }}/api/products/1",
+      "name": "8. PUT /api/products/:id - Preço Negativo (400)",
+      "description": "### Status Esperado: 400 Bad Request\nFalha de validação do Zod: campo 'price' com valor negativo. A API rejeita a atualização.",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"price\": -150.00\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 800,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_put_product_not_found",
+      "parentId": "fld_products",
+      "modified": 1726855200000,
+      "created": 1726855200000,
+      "url": "{{ _.base_url }}/api/products/99999",
+      "name": "9. PUT /api/products/:id - ID Inexistente (404 Prisma P2025)",
+      "description": "### Status Esperado: 404 Not Found\nTenta atualizar registro inexistente. O Prisma lança o erro P2025, devidamente tratado e mapeado para 404.",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"title\": \"Produto Fantasma\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 900,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_delete_product_valid",
+      "parentId": "fld_products",
+      "modified": 1726855200000,
+      "created": 1726855200000,
+      "url": "{{ _.base_url }}/api/products/1",
+      "name": "10. DELETE /api/products/:id - Válido (204)",
+      "description": "### Status Esperado: 204 No Content\nDeleta com sucesso o produto existente. A resposta não possui corpo.",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 1000,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "req_delete_product_not_found",
+      "parentId": "fld_products",
+      "modified": 1726855200000,
+      "created": 1726855200000,
+      "url": "{{ _.base_url }}/api/products/99999",
+      "name": "11. DELETE /api/products/:id - Inexistente (404 Prisma P2025)",
+      "description": "### Status Esperado: 404 Not Found\nTenta deletar registro inexistente. O Prisma lança o erro P2025, devidamente tratado e mapeado para 404.",
+      "method": "DELETE",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 1100,
+      "isPrivate": false,
+      "_type": "request"
+    },
+    {
+      "_id": "fld_general",
+      "parentId": "wrk_products_crud",
+      "modified": 1726855200000,
+      "created": 1726855200000,
+      "name": "Geral & Status",
+      "description": "Health check e documentação",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": 200,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_health_check",
+      "parentId": "fld_general",
+      "modified": 1726855200000,
+      "created": 1726855200000,
+      "url": "{{ _.base_url }}/",
+      "name": "12. GET / - Health Check (200)",
+      "description": "### Status Esperado: 200 OK\nRetorna status operacional da API e links úteis.",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 100,
+      "isPrivate": false,
+      "_type": "request"
+    }
+  ]
+}
