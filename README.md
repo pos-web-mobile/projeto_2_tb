@@ -1,5 +1,9 @@
 # API de Catálogo de Produtos – CRUD com Express, Prisma e Zod
 
+[![Vídeo de Apresentação](https://img.youtube.com/vi/pkbx1c8xc-s/maxresdefault.jpg)](https://youtu.be/pkbx1c8xc-s)
+
+> 🎬 **Vídeo de Apresentação**: [Assista à demonstração completa no YouTube](https://youtu.be/pkbx1c8xc-s)
+
 API RESTful desenvolvida em **Node.js** com **TypeScript** e **Express**, utilizando **Prisma ORM** para persistência no **PostgreSQL**, validação de schemas em tempo de execução com **Zod**, suporte a containerização via **Docker Compose**, documentação interativa com **Swagger UI** e workspace completo para testes no **Insomnia**.
 
 ---
